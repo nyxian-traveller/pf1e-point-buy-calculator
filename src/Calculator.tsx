@@ -337,7 +337,7 @@ function Calculator () {
                         <FormLabel className='form-label' column='lg'>Charisma</FormLabel>
                     </Col>
                     <Col>
-                        <FormControl className='form-control' type='number' step={2} min={7} max={18} value={chaPoints} onChange={({target: {value}}) => setChaPoints(parseInt(value))} />
+                        <FormControl className='form-control' type='number' step={1} min={7} max={18} value={chaPoints} onChange={({target: {value}}) => setChaPoints(parseInt(value))} />
                     </Col>
                     <Col>
                         <FormLabel className='form-label' column='lg'>{chaCost}</FormLabel>
