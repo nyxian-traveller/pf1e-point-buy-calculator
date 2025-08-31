@@ -28,7 +28,7 @@ export const Races: Race[] = [
     { key: 'ifritsolar',       name: 'Ifrit (Solar)',             str:  2, dex:  0, con:  0, int:  0, wis: -2, cha:  2, custom: false, addSingleBonus: false, note: '' },
     { key: 'kistune',          name: 'Kistune',                   str: -2, dex:  2, con:  0, int:  0, wis:  0, cha:  2, custom: false, addSingleBonus: false, note: '' },
     { key: 'kobold',           name: 'Kobold',                    str: -4, dex:  2, con: -2, int:  0, wis:  0, cha:  0, custom: false, addSingleBonus: false, note: '' },
-    { key: 'nagaji',           name: 'Nagaji',                    str:  2, dex:  0, con:  0, int: -2, wis:  0, cha:  2, custom: false, addSingleBonus: false, note: '' },
+    { key: 'lizardfolk',       name: 'Lizardfolk',                str:  2, dex:  0, con:  2, int:  0, wis:  0, cha:  0, custom: false, addSingleBonus: false, note: '' },
     { key: 'oread',            name: 'Oread',                     str:  2, dex:  0, con:  0, int:  0, wis:  2, cha: -2, custom: false, addSingleBonus: false, note: '' },
     { key: 'oreadcrystal',     name: 'Oread (Crystal)',           str:  2, dex:  0, con:  0, int:  0, wis: -2, cha:  2, custom: false, addSingleBonus: false, note: '' },
     { key: 'oreadmetal',       name: 'Oread (Metal)',             str:  0, dex: -2, con:  2, int:  0, wis:  2, cha:  0, custom: false, addSingleBonus: false, note: '' },
@@ -50,6 +50,5 @@ export const Races: Race[] = [
     { key: 'undine',           name: 'Undine',                    str: -2, dex:  2, con:  0, int:  0, wis:  2, cha:  0, custom: false, addSingleBonus: false, note: '' },
     { key: 'undinefrost',      name: 'Undine (Frost)',            str:  0, dex:  2, con:  0, int:  2, wis:  0, cha: -2, custom: false, addSingleBonus: false, note: '' },
     { key: 'undinevapor',      name: 'Undine (Vapor)',            str:  0, dex:  0, con:  2, int: -2, wis:  2, cha:  0, custom: false, addSingleBonus: false, note: '' },
-    { key: 'wayang',           name: 'Wayang',                    str:  0, dex:  2, con:  0, int:  2, wis: -2, cha:  0, custom: false, addSingleBonus: false, note: '' },
     { key: 'custom',           name: 'Custom',                    str:  0, dex:  0, con:  0, int:  0, wis:  0, cha:  0, custom: true,  addSingleBonus: false, note: 'Choose your own modifiers' },
 ];
