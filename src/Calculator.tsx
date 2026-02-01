@@ -64,7 +64,7 @@ function Calculator () {
         setIntPoints(10);
         setWisPoints(10);
         setChaPoints(10);
-    } ,[maxPoints]);
+    }, [maxPoints]);
 
     useEffect(() => {
         setStrRacial(racial.str);
@@ -75,9 +75,6 @@ function Calculator () {
         setChaRacial(racial.cha);
     }, [racial]);
 
-    useEffect(() => setStrCost(costs[strPoints]), [strPoints]);
-    useEffect(() => setStr(strRacial + strPoints), [strRacial, strPoints]);
-    useEffect(() => setStrBonus(bonuses[str]), [str]);
     useEffect(() => {
         if (!racial.addSingleBonus) {
             setInvalidRacial(false);
@@ -94,25 +91,29 @@ function Calculator () {
         );
     }, [racial.addSingleBonus, strRacial, dexRacial, conRacial, intRacial, wisRacial, chaRacial]);
 
-    useEffect(() => setDexCost(costs[dexPoints]), [dexPoints]);
+    useEffect(() => setStrCost(costs[strPoints]), [strPoints, costs]);
+    useEffect(() => setStr(strRacial + strPoints), [strRacial, strPoints]);
+    useEffect(() => setStrBonus(bonuses[str]), [str, bonuses]);
+
+    useEffect(() => setDexCost(costs[dexPoints]), [dexPoints, costs]);
     useEffect(() => setDex(dexRacial + dexPoints), [dexRacial, dexPoints]);
-    useEffect(() => setDexBonus(bonuses[dex]), [dex]);
+    useEffect(() => setDexBonus(bonuses[dex]), [dex, bonuses]);
 
-    useEffect(() => setConCost(costs[conPoints]), [conPoints]);
+    useEffect(() => setConCost(costs[conPoints]), [conPoints, costs]);
     useEffect(() => setCon(conRacial + conPoints), [conRacial, conPoints]);
-    useEffect(() => setConBonus(bonuses[con]), [con]);
+    useEffect(() => setConBonus(bonuses[con]), [con, bonuses]);
 
-    useEffect(() => setIntCost(costs[intPoints]), [intPoints]);
+    useEffect(() => setIntCost(costs[intPoints]), [intPoints, costs]);
     useEffect(() => setInt(intRacial + intPoints), [intRacial, intPoints]);
-    useEffect(() => setIntBonus(bonuses[int]), [int]);
+    useEffect(() => setIntBonus(bonuses[int]), [int, bonuses]);
 
-    useEffect(() => setWisCost(costs[wisPoints]), [wisPoints]);
+    useEffect(() => setWisCost(costs[wisPoints]), [wisPoints, costs]);
     useEffect(() => setWis(wisRacial + wisPoints), [wisRacial, wisPoints]);
-    useEffect(() => setWisBonus(bonuses[wis]), [wis]);
+    useEffect(() => setWisBonus(bonuses[wis]), [wis, bonuses]);
 
-    useEffect(() => setChaCost(costs[chaPoints]), [chaPoints]);
+    useEffect(() => setChaCost(costs[chaPoints]), [chaPoints, costs]);
     useEffect(() => setCha(chaRacial + chaPoints), [chaRacial, chaPoints]);
-    useEffect(() => setChaBonus(bonuses[cha]), [cha]);
+    useEffect(() => setChaBonus(bonuses[cha]), [cha, bonuses]);
 
     useEffect(() => setTotalPoints(strCost + dexCost + conCost + intCost + wisCost + chaCost), [strCost, dexCost, conCost, intCost, wisCost, chaCost]);
 

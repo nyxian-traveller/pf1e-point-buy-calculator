@@ -1,7 +1,4 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import { FormLabel } from 'react-bootstrap';
 import Calculator from './Calculator';
 
 function App() {
