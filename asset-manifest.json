@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/pf1e-point-buy-calculator/static/css/main.d7c25884.css",
-    "main.js": "/pf1e-point-buy-calculator/static/js/main.d768e700.js",
+    "main.js": "/pf1e-point-buy-calculator/static/js/main.778d3200.js",
     "static/js/453.e55e582f.chunk.js": "/pf1e-point-buy-calculator/static/js/453.e55e582f.chunk.js",
     "index.html": "/pf1e-point-buy-calculator/index.html",
     "main.d7c25884.css.map": "/pf1e-point-buy-calculator/static/css/main.d7c25884.css.map",
-    "main.d768e700.js.map": "/pf1e-point-buy-calculator/static/js/main.d768e700.js.map",
+    "main.778d3200.js.map": "/pf1e-point-buy-calculator/static/js/main.778d3200.js.map",
     "453.e55e582f.chunk.js.map": "/pf1e-point-buy-calculator/static/js/453.e55e582f.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.d7c25884.css",
-    "static/js/main.d768e700.js"
+    "static/js/main.778d3200.js"
   ]
 }
