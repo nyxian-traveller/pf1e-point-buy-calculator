@@ -13,3 +13,103 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.margin-left-15 {
+  margin-left: 15px;
+}
+.margin-right-15 {
+  margin-right: 15px;
+}
+.margin-bottom-30 {
+  margin-bottom: 30px;
+}
+.margin-top-20 {
+  margin-top: 20;
+}
+.margin-top-neg-8 {
+  margin-top: -8px;
+}
+.margin-top-neg-10 {
+  margin-top: -10px;
+}
+
+.invalid-points {
+  color: #ff0073;
+  font-weight: bolder;
+  font-size: 45px;
+  display: inline-block;
+  margin-left: 15px;
+}
+
+.valid-points {
+  margin-top: 10px !important;
+  margin-left: 27px;
+  color: limegreen;
+  font-size: 24px !important;
+  margin-top: 6px !important;
+}
+
+.point-buy-form {
+  font-size: 1.25rem;
+  margin-top: 13px;
+  margin-bottom: 13px;
+}
+
+.form-text {
+  font-size: 1.25rem;
+}
+
+.buy-text {
+  font-size: 1.25rem;
+  padding-top: calc(0.5rem + var(--bs-border-width));
+  padding-bottom: calc(0.5rem + var(--bs-border-width));
+  margin-top: 10px;
+  margin-bottom: 0px;
+  line-height: 1.5;
+  display: inline-block;
+}
+
+.buy-reset {
+  width: 200px;
+  font-size: 1.25rem;
+  height: 35px;
+  padding-top: 1px;
+}
+.buy-stat-total {
+  font-weight: bolder;
+  font-size: 28px;
+  display: inline-block;
+  margin-left: 15px;
+  margin-top: 2px;
+}
+
+.buy-tooltip {
+  font-size: 1.25rem !important;
+  background-color: #ff0073 !important;
+}
+.tooltip {
+  padding-top: 0px !important;
+}
+
+.buy-form-label {
+  font-weight: bolder;
+}
+.buy-row-header {
+  background-color: #474f5e;
+}
+.buy-row-odd {
+  background-color: #535e70;
+  border-color: #474f5e;
+  border-top-width: 0px;
+  border-bottom-width: 0px;
+  border-left-width: 2px;
+  border-right-width: 2px;
+  border-style: solid;
+}
+.buy-row-even {
+  border-color: #474f5e;
+  border-width: 2px;
+  border-top-width: 0px;
+  border-bottom-width: 0px;
+  border-style: solid;
+}

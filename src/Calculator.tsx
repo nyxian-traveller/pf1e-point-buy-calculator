@@ -1,8 +1,11 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { FiAlertCircle, FiExternalLink } from "react-icons/fi";
+import { VscDebugRestart } from "react-icons/vsc";
+import { Tooltip } from 'react-tooltip'
+import { Button, Col, Form, FormControl, FormSelect, FormText, Row } from 'react-bootstrap';
 import { Race, Races } from './model/Race';
 import { PointBuy, PointBuys } from './model/PointBuy';
 import { CostIncrements } from './model/CostIncrement';
-import { Button, Col, Form, FormControl, FormLabel, FormSelect, Row } from 'react-bootstrap';
 import { Bonuses } from './model/Bonus';
 
 function Calculator () {
@@ -10,7 +13,8 @@ function Calculator () {
     const pointBuys: PointBuy[] = useMemo(() => ([ ...PointBuys]), []);
     const costs: number[] = useMemo(() => [ ...CostIncrements ], []);
     const bonuses: number[] = useMemo(() => [ ...Bonuses ], []);
-    
+    const pointsMin = 7;
+    const pointsMax = 18
     const [maxPoints, setMaxPoints] = useState<number>(20);
     const [racial, setRacial] = useState<Race>(Races[0]);
     
@@ -128,73 +132,107 @@ function Calculator () {
             <Form>
                 <Row>
                     <Col>
-                        <FormLabel column='lg'>Point Level:</FormLabel>
+                        <div className='buy-text'>Point Level:</div>
                     </Col>
                     <Col>
-                        <FormLabel column='lg' style={{ marginRight: '15px'}}>Total Points:</FormLabel>
+                        <div className='buy-text margin-right-15'>Total Points:</div>
                     </Col>
                 </Row>
                 <Row>
                     <Col>
-                        <FormSelect className='form-control' value={maxPoints} onChange={({target: {value}}) => setMaxPoints(parseInt(value))}>
+                        <FormSelect id='max-points-select' className='form-control point-buy-form' value={maxPoints} onChange={({target: {value}}) => setMaxPoints(parseInt(value))}>
                             {pointBuys.map(x => <option id={`${x.points}-points`} key={`${x.points}-points`} value={x.points}>{`${x.name} - ${x.points} Points`}</option>)}
                         </FormSelect>
                     </Col>
-                    <Col style={{ marginTop: '-10px'}}>
-                        <FormLabel className='form-label' column='lg' style={totalPoints > maxPoints ? { color: 'red', fontWeight:' bolder'} : {}}>{totalPoints}</FormLabel>
+                    <Col>
+                        <div className={totalPoints > maxPoints ? 'invalid-points' : 'buy-text valid-points'}>
+                            {totalPoints}{' '}
+                            {totalPoints > maxPoints && 
+                                <FiAlertCircle
+                                    data-tooltip-id='invalid-point-tooltip'
+                                    color='white'
+                                    className='margin-top-neg-8'
+                                />
+                            }
+                            <Tooltip
+                                id='invalid-point-tooltip'
+                                place='right-end'
+                                className='buy-tooltip'
+                                content={`Total points cannot exceed ${maxPoints} points!`}
+                            />
+                        </div>
                     </Col>
                 </Row>
                 <Row>
                     <Col>
-                        <FormLabel className='form-label' column='lg'>Race:</FormLabel>
+                        <div className='buy-text'>Race:</div>
                     </Col>
                     <Col>
-                        <FormLabel className='form-label' column='lg' style={{ marginRight: '15px'}}>Notes:</FormLabel>
+                        <div className='buy-text margin-right-15'>Notes:</div>
                     </Col>
                 </Row>
-                <Row style={{ marginBottom: '30px' }}>
+                <Row>
                     <Col>
-                        <FormSelect className='form-control' value={racial.key} onChange={({target: {value}}) => setRacial(races.find(x => x.key === value)!)}>
+                        <FormSelect id='race-selector' className='form-control point-buy-form' value={racial.key} onChange={({target: {value}}) => setRacial(races.find(x => x.key === value)!)}>
                             {races.map(x => <option id={`${x.key}-points`} key={`${x.key}-points`} value={x.key}>{x.name}</option>)}
                         </FormSelect>
                     </Col>
-                    <Col style={{ marginTop: '-10px'}}>
-                        <FormLabel className='form-label' column='lg'>{racial.note}</FormLabel>
+                    <Col>
+                        <div className='buy-text'>{racial.note}</div>
                     </Col>
                 </Row>
-                <Row>
+                <Row className='margin-bottom-30'>
                     <Col>
-                        <FormLabel className='form-label' column='lg'>Ability</FormLabel>
+                        <Row className='margin-top-neg-10'>
+                            <Col>
+                                <FormText>
+                                    <a href={racial.d20SiteLink} target="_blank" rel="noopener noreferrer">d20pfsrd Link</a> <FiExternalLink color='white'/>
+                                </FormText>
+                            </Col>
+                            <Col>
+                                <FormText>
+                                    <a href={racial.archivesOfNethysLink} target="_blank" rel="noopener noreferrer">Archives Of Nethys Link</a> <FiExternalLink color='white'/>
+                                </FormText>
+                            </Col>
+                        </Row>
                     </Col>
                     <Col>
-                        <FormLabel className='form-label' column='lg'>Purchased</FormLabel>
-                    </Col>
-                    <Col>
-                        <FormLabel className='form-label' column='lg'>Cost</FormLabel>
-                    </Col>
-                    <Col>
-                        <FormLabel className='form-label' column='lg'>Racial Modifier</FormLabel>
-                    </Col>
-                    <Col>
-                        <FormLabel className='form-label' column='lg'>Final</FormLabel>
-                    </Col>
-                    <Col>
-                        <FormLabel className='form-label' column='lg'>Bonus</FormLabel>
                     </Col>
                 </Row>
-                <Row>
+                <Row className='buy-row-header'>
                     <Col>
-                        <FormLabel className='form-label' column='lg'>Strength</FormLabel>
+                        <div className='buy-text buy-form-label'>Ability</div>
                     </Col>
                     <Col>
-                        <FormControl className='form-control' type='number' step={1} min={7} max={18} value={strPoints} onChange={({target: {value}}) => setStrPoints(parseInt(value))} />
+                        <div className='buy-text buy-form-label'>Purchased</div>
                     </Col>
                     <Col>
-                        <FormLabel className='form-label' column='lg'>{strCost}</FormLabel>
+                        <div className='buy-text buy-form-label'>Cost</div>
+                    </Col>
+                    <Col>
+                        <div className='buy-text buy-form-label'>Racial Modifier</div>
+                    </Col>
+                    <Col>
+                        <div className='buy-text buy-form-label'>Final</div>
+                    </Col>
+                    <Col>
+                        <div className='buy-text buy-form-label'>Bonus</div>
+                    </Col>
+                </Row>
+                <Row className='buy-row-even'>
+                    <Col>
+                        <div className='buy-text margin-left-15'>Strength</div>
+                    </Col>
+                    <Col>
+                        <FormControl id='str-buy' className='form-control point-buy-form' type='number' step={1} min={pointsMin} max={pointsMax} value={strPoints} onChange={({target: {value}}) => setStrPoints(parseInt(value))} />
+                    </Col>
+                    <Col>
+                        <div className='buy-text margin-left-15'>{strCost}</div>
                     </Col>
                     <Col>
                         <FormControl
-                            className='form-control'
+                            id='str-race-mod'
+                            className='form-control point-buy-form'
                             type='number'
                             step={2}
                             min={racial.custom ? -6 : racial.addSingleBonus ? 0 : 4}
@@ -206,25 +244,26 @@ function Calculator () {
                         />
                     </Col>
                     <Col>
-                        <FormLabel className='form-label' column='lg'>{str}</FormLabel>
+                        <div className='buy-text buy-stat-total'>{str}</div>
                     </Col>
                     <Col>
-                        <FormLabel className='form-label' column='lg'>{strBonus}</FormLabel>
+                        <div className='buy-text margin-left-15'>{strBonus < 0 ? '' : '+'}{strBonus}</div>
                     </Col>
                 </Row>
-                <Row>
+                <Row className='buy-row-odd'>
                     <Col>
-                        <FormLabel className='form-label' column='lg'>Dexterity</FormLabel>
+                        <div className='buy-text margin-left-15'>Dexterity</div>
                     </Col>
                     <Col>
-                        <FormControl className='form-control' type='number' step={1} min={7} max={18} value={dexPoints} onChange={({target: {value}}) => setDexPoints(parseInt(value))} />
+                        <FormControl id='dex-buy' className='form-control point-buy-form' type='number' step={1} min={pointsMin} max={pointsMax} value={dexPoints} onChange={({target: {value}}) => setDexPoints(parseInt(value))} />
                     </Col>
                     <Col>
-                        <FormLabel className='form-label' column='lg'>{dexCost}</FormLabel>
+                        <div className='buy-text margin-left-15'>{dexCost}</div>
                     </Col>
                     <Col>
                         <FormControl
-                            className='form-control'
+                            id='dex-race-mod'
+                            className='form-control point-buy-form'
                             type='number'
                             step={2}
                             min={racial.custom ? -6 : racial.addSingleBonus ? 0 : 4}
@@ -236,25 +275,26 @@ function Calculator () {
                         />
                     </Col>
                     <Col>
-                        <FormLabel className='form-label' column='lg'>{dex}</FormLabel>
+                        <div className='buy-text buy-stat-total'>{dex}</div>
                     </Col>
                     <Col>
-                        <FormLabel className='form-label' column='lg'>{dexBonus}</FormLabel>
+                        <div className='buy-text margin-left-15'>{dexBonus < 0 ? '' : '+'}{dexBonus}</div>
                     </Col>
                 </Row>
-                <Row>
+                <Row className='buy-row-even'>
                     <Col>
-                        <FormLabel className='form-label' column='lg'>Constitution</FormLabel>
+                        <div className='buy-text margin-left-15'>Constitution</div>
                     </Col>
                     <Col>
-                        <FormControl className='form-control' type='number' step={1} min={7} max={18} value={conPoints} onChange={({target: {value}}) => setConPoints(parseInt(value))} />
+                        <FormControl id='con-buy' className='form-control point-buy-form' type='number' step={1} min={pointsMin} max={pointsMax} value={conPoints} onChange={({target: {value}}) => setConPoints(parseInt(value))} />
                     </Col>
                     <Col>
-                        <FormLabel className='form-label' column='lg'>{conCost}</FormLabel>
+                        <div className='buy-text margin-left-15'>{conCost}</div>
                     </Col>
                     <Col>
                         <FormControl
-                            className='form-control'
+                            id='con-race-mod'
+                            className='form-control point-buy-form'
                             type='number'
                             step={2}
                             min={racial.custom ? -6 : racial.addSingleBonus ? 0 : 4}
@@ -266,25 +306,26 @@ function Calculator () {
                         />
                     </Col>
                     <Col>
-                        <FormLabel className='form-label' column='lg'>{con}</FormLabel>
+                        <div className='buy-text buy-stat-total'>{con}</div>
                     </Col>
                     <Col>
-                        <FormLabel className='form-label' column='lg'>{conBonus}</FormLabel>
+                        <div className='buy-text margin-left-15'>{conBonus < 0 ? '' : '+'}{conBonus}</div>
                     </Col>
                 </Row>
-                <Row>
+                <Row className='buy-row-odd'>
                     <Col>
-                        <FormLabel className='form-label' column='lg'>Intelligence</FormLabel>
+                        <div className='buy-text margin-left-15'>Intelligence</div>
                     </Col>
                     <Col>
-                        <FormControl className='form-control' type='number' step={1} min={7} max={18} value={intPoints} onChange={({target: {value}}) => setIntPoints(parseInt(value))} />
+                        <FormControl id='int-buy' className='form-control point-buy-form' type='number' step={1} min={pointsMin} max={pointsMax} value={intPoints} onChange={({target: {value}}) => setIntPoints(parseInt(value))} />
                     </Col>
                     <Col>
-                        <FormLabel className='form-label' column='lg'>{intCost}</FormLabel>
+                        <div className='buy-text margin-left-15'>{intCost}</div>
                     </Col>
                     <Col>
                         <FormControl
-                            className='form-control'
+                            id='int-race-mod'
+                            className='form-control point-buy-form'
                             type='number'
                             step={2}
                             min={racial.custom ? -6 : racial.addSingleBonus ? 0 : 4}
@@ -296,25 +337,26 @@ function Calculator () {
                         />
                     </Col>
                     <Col>
-                        <FormLabel className='form-label' column='lg'>{int}</FormLabel>
+                        <div className='buy-text buy-stat-total'>{int}</div>
                     </Col>
                     <Col>
-                        <FormLabel className='form-label' column='lg'>{intBonus}</FormLabel>
+                        <div className='buy-text margin-left-15'>{intBonus < 0 ? '' : '+'}{intBonus}</div>
                     </Col>
                 </Row>
-                <Row>
+                <Row className='buy-row-even'>
                     <Col>
-                        <FormLabel className='form-label' column='lg'>Wisdom</FormLabel>
+                        <div className='buy-text margin-left-15'>Wisdom</div>
                     </Col>
                     <Col>
-                        <FormControl className='form-control' type='number' step={1} min={7} max={18} value={wisPoints} onChange={({target: {value}}) => setWisPoints(parseInt(value))} />
+                        <FormControl id='wis-buy' className='form-control point-buy-form' type='number' step={1} min={pointsMin} max={pointsMax} value={wisPoints} onChange={({target: {value}}) => setWisPoints(parseInt(value))} />
                     </Col>
                     <Col>
-                        <FormLabel className='form-label' column='lg'>{wisCost}</FormLabel>
+                        <div className='buy-text margin-left-15'>{wisCost}</div>
                     </Col>
                     <Col>
                         <FormControl
-                            className='form-control'
+                            id='wis-race-mod'
+                            className='form-control point-buy-form'
                             type='number'
                             step={2}
                             min={racial.custom ? -6 : racial.addSingleBonus ? 0 : 4}
@@ -326,25 +368,26 @@ function Calculator () {
                         />
                     </Col>
                     <Col>
-                        <FormLabel className='form-label' column='lg'>{wis}</FormLabel>
+                        <div className='buy-text buy-stat-total'>{wis}</div>
                     </Col>
                     <Col>
-                        <FormLabel className='form-label' column='lg'>{wisBonus}</FormLabel>
+                        <div className='buy-text margin-left-15'>{wisBonus < 0 ? '' : '+'}{wisBonus}</div>
                     </Col>
                 </Row>
-                <Row>
+                <Row className='buy-row-odd'>
                     <Col>
-                        <FormLabel className='form-label' column='lg'>Charisma</FormLabel>
+                        <div className='buy-text margin-left-15'>Charisma</div>
                     </Col>
                     <Col>
-                        <FormControl className='form-control' type='number' step={1} min={7} max={18} value={chaPoints} onChange={({target: {value}}) => setChaPoints(parseInt(value))} />
+                        <FormControl id='cha-buy' className='form-control point-buy-form' type='number' step={1} min={pointsMin} max={pointsMax} value={chaPoints} onChange={({target: {value}}) => setChaPoints(parseInt(value))} />
                     </Col>
                     <Col>
-                        <FormLabel className='form-label' column='lg'>{chaCost}</FormLabel>
+                        <div className='buy-text margin-left-15'>{chaCost}</div>
                     </Col>
                     <Col>
                         <FormControl
-                            className='form-control'
+                            id='cha-race-mod'
+                            className='form-control point-buy-form'
                             type='number'
                             step={2}
                             min={racial.custom ? -6 : racial.addSingleBonus ? 0 : 4}
@@ -356,14 +399,14 @@ function Calculator () {
                         />
                     </Col>
                     <Col>
-                        <FormLabel className='form-label' column='lg'>{cha}</FormLabel>
+                        <div className='buy-text buy-stat-total'>{cha}</div>
                     </Col>
                     <Col>
-                        <FormLabel className='form-label' column='lg'>{chaBonus}</FormLabel>
+                        <div className='buy-text margin-left-15'>{chaBonus < 0 ? '' : '+'}{chaBonus}</div>
                     </Col>
                 </Row>
-                <div style={{ marginTop: '20px' }}>
-                    <Button className='col-md-2' style={{ float: 'right' }} onClick={reset}>Reset</Button>
+                <div className='margin-top-20'>
+                    <Button className='buy-reset' onClick={reset}>Reset <VscDebugRestart /></Button>
                 </div>
 
             </Form>
